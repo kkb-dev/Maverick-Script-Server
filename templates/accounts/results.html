@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Results</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Results</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+            <p>SecureCRT feedback from launched scripts.<br/>Currently displays results for Add MAC & Add SSID.</p><hr/>
+
+<div>
+
+    {% if c1%}
+
+    <p><strong>Results from ADD MAC.</strong></p><hr/>
+
+    <strong>172.16.255.11</strong><br>
+    {% for x,y in c1.items %}
+    {% if y == "Success!" %}
+    <div class="alert alert-success">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% else %}
+    <div class="alert alert-danger">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% endif %}
+    {%endfor%}
+
+    <strong>172.16.255.12</strong><br>
+    {% for x,y in c2.items %}
+    {% if y == "Success!" %}
+    <div class="alert alert-success">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% else %}
+    <div class="alert alert-danger">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% endif %}
+    {%endfor%}
+
+    <strong>172.16.255.13</strong><br>
+    {% for x,y in c3.items %}
+    {% if y == "Success!" %}
+    <div class="alert alert-success">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% else %}
+    <div class="alert alert-danger">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% endif %}
+    {%endfor%}
+
+    <strong>172.16.255.14</strong><br>
+    {% for x,y in c4.items %}
+    {% if y == "Success!" %}
+    <div class="alert alert-success">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% else %}
+    <div class="alert alert-danger">
+    <strong>{{x.upper}}</strong><br>{{y}}</div>
+    {% endif %}
+    {%endfor%}
+    {% endif%}
+
+</div>
+
+<div>
+    {% if asc1 %}
+
+    <br/><hr/><p><strong>Results from ADD SSID.</strong></p><hr/>
+
+    <strong>172.16.255.11</strong><br>
+    {% for x in asc1 %}
+    {%if x == "WLAN Identifier or Profile Name already in use."%}
+    <div class="alert alert-danger">
+    <strong>{{x}}</strong></div>
+    {% else %}
+    <div class="alert alert-success">
+    <strong>{{x}}</strong></div>
+    {%endif%}
+    {%endfor%}
+    <strong>172.16.255.12</strong><br>
+    {% for x in asc2 %}
+    {%if x == "WLAN Identifier or Profile Name already in use."%}
+    <div class="alert alert-danger">
+    <strong>{{x}}</strong></div>
+    {% else %}
+    <div class="alert alert-success">
+    <strong>{{x}}</strong></div>
+    {%endif%}
+    {%endfor%}
+    <strong>172.16.255.13</strong><br>
+    {% for x in asc3 %}
+    {%if x == "WLAN Identifier or Profile Name already in use."%}
+    <div class="alert alert-danger">
+    <strong>{{x}}</strong></div>
+    {% else %}
+    <div class="alert alert-success">
+    <strong>{{x}}</strong></div>
+    {%endif%}
+    {%endfor%}
+    <strong>172.16.255.14</strong><br>
+    {% for x in asc4 %}
+    {%if x == "WLAN Identifier or Profile Name already in use."%}
+    <div class="alert alert-danger">
+    <strong>{{x}}</strong></div>
+    {% else %}
+    <div class="alert alert-success">
+    <strong>{{x}}</strong></div>
+    {%endif%}
+    {%endfor%}
+    {% endif %}
+</div>
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}

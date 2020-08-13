@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Info</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Info</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+            <p>Quick access to some general info.</p><hr/>
+
+<div>
+    <strong>Test</strong>
+    <p>Password</p>
+
+    <form>
+        {{form}}
+        <button type="submit">Submit</button>
+    </form>
+
+</div>
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}

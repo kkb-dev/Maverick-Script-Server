@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  {% if user.is_authenticated %}
+        <p>Here you can review your scripts and launch them!</p>
+        <hr/>
+        <h6>Always check your work after using scripts!
+            It is your responsibility to complete configurations and ensure accuracy! </h6>
+        <div class="fixed-bottom"><a href="#top" class="btn btn-info" role="button">Go Back Up</a></div>
+        <hr/>
+
+        {% if addssidshow or addmacshow or removemac or removessid%}
+<!-- Modal Button -->
+<span data-toggle="modal" data-target="#myModal">
+  <button type="button" data-toggle="tooltip" title='{{time}}' class="btn btn-primary" id="dislikes"
+          onclick="location.href='{% url 'launchscripts' %}'"
+          onclick="disableClick()"
+          value="notThisValue">
+            Launch Scripts(s)
+        </button><hr>
+</span>
+
+<!-- The Modal Start-->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+      <div class="modal-body">
+          <div class="d-flex align-items-center">
+              <strong>SecureCRT is running, please wait...</strong>
+              <div class="spinner-border ml-auto" role="status" aria-hidden="true">
+              </div></div></div></div></div></div>
+<!-- The Button Script-->
+<script>
+$(document).ready(function() {
+$('#dislikes').click(function() {
+$('body').css('pointer-events', 'none');
+$('body').css('user-select', 'none');
+$(this).text('Running Script...');
+})
+});
+</script>
+        {%else%}
+        {% endif %}
+
+        {% if removemac %}
+                <hr/>
+                <button class="btn btn-danger" onclick="location.href='{% url 'killremovemac' %}'">Delete 'Remove MAC' script</button> <hr>
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">-</button>
+                <strong>Success!</strong> Remove MAC script is ready to launch!<hr/>
+
+                <strong>MAC Address(es):</strong>
+                   <br>
+                    {% for mac in removemac%}
+                        {% if mac == '' %}
+                        {%else%}
+                            {{mac}}<br>
+                        {%endif%}
+                    {% endfor %}
+                </div>
+        {% endif %}
+
+        {% if removessid %}
+                <hr/>
+                <button class="btn btn-danger" onclick="location.href='{% url 'killremovessid' %}'">Delete 'Remove SSID' script</button> <hr>
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">-</button>
+                <strong>Success!</strong> Remove SSID script is ready to launch!<hr/>
+
+                <strong>SSID(s):</strong>
+                   <br>
+                    {% for ss in removessid%}
+                        {% if ss == '' %}
+                        {%else%}
+                            {{ss}}<br>
+                        {%endif%}
+                    {% endfor %}
+                </div>
+        {% endif %}
+
+        {% if addssidshow %}
+                <hr/>
+                <button class="btn btn-danger" onclick="location.href='{% url 'killaddssid' %}'">Delete 'Add SSID' script</button> <hr>
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">-</button>
+                <strong>Success!</strong> Add SSID script is ready to launch!<hr/>
+
+                <strong>Show:</strong>
+                    <br>{{addssidshow}}<br>
+                <strong>SSID:</strong>
+                    <br>{{addssidssid}}<br>
+                <strong>Password:</strong>
+                    <br>{{addssidpass}}<br>
+                <strong>VLAN:</strong>
+                    <br>{{addssidvlan}}<br>
+                <strong>Frequency:</strong>
+                    <br>{{addssidfrequency}}<br>
+                <strong>WID:</strong>
+                    <br>{{addssidwid}}<br>
+                <strong>AP Groups:</strong>
+                    <br>
+                    {% for ap in addssidapgroups%}
+                    {{ap}},
+                    {% endfor %}
+                </div>
+        {% endif %}
+
+
+        {% if addmacshow %}
+                <hr/>
+                <button class="btn btn-danger" onclick="location.href='{% url 'killaddmac' %}'">Delete 'Add MAC' script</button> <hr>
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">-</button>
+                <strong>Success!</strong> Add MAC script is ready to launch!<hr/>
+
+                <strong>Show:</strong>
+                    <br>{{addmacshow}}<br>
+                <strong>Booth Number:</strong>
+                    <br>{{addmacbooth}}<br>
+                <strong>WID:</strong>
+                    <br>{{addmacwid}}<br>
+                <strong>Send Credentials To:</strong>
+                    <br>{{addmacemail}}<br>
+                <strong>MAC Address(es):</strong>
+                   <br>
+                    {% for mac in addmacmacs%}
+                        {% if mac == '' %}
+                        {%else%}
+                            {{mac}}<br>
+                        {%endif%}
+                    {% endfor %}
+                </div>
+        {% endif %}
+
+
+
+    {% else %}
+        <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}
