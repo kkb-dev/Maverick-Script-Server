@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Login</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Login</h2>
+    <p>Sign in using your Javits AD.</p>
+<hr/>
+{% endblock %}
+
+{% block body %}
+    <form method="post">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        <br>
+        <p>You're already logged in!</p>
+    {% else %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Incorrect!</strong> Please ensure correct username and password.
+            </div>
+        {% endif %}
+            <div class="form-group">
+            <label for="usr">Username:</label>
+            <input type="text" class="form-control"
+                   id={{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="usr">Password:</label>
+                <input type="password" class="form-control"
+                       id={{ form.password }}
+
+            </div>
+            <button type="submit">Login</button>
+
+            <p>
+                <br>
+                <br>
+                <hr/>
+            <a href="/register" class="btn btn-light"
+               role="button">Click here to register your account.</a>
+            </p>
+        </form>
+
+    {% endif %}
+{% endblock %}

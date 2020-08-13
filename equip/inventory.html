@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Inventory</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Inventory</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+            <p>Check what items have been sent out for rental.</p><hr/>
+
+<div>
+<form method="post">{% csrf_token %}
+<label><strong>Show Name </strong></label>
+<div class="input-group mb-2">
+<br>
+<input class="form-control" type="text"
+    placeholder="Search for a specific show.." id="myInput">
+<select class="custom-select" id={{form.show}}
+</select>
+</div>
+
+<br/>
+<hr/><hr/><hr/>
+
+<!--ul class="list-group" id="myList"-->
+<li class="list-group"><strong>
+Show - Booth - File Name
+<hr/>
+</strong></li>
+<ul class="list-group" id="myList">
+{% for ap in form.equip%}
+<li class="list-group-item" name="ap">{{ap}}</li>
+{% endfor %}
+</ul>
+</div>
+
+
+<script>
+$(document).ready(function(){
+$("#myInput").blur(function(){
+$('.custom-select').attr('size',1);
+});});
+</script>
+<script>
+$(document).ready(function(){
+$("#myInput").click(function(){
+$('.custom-select').attr('size',2);
+});});
+</script>
+
+<script>
+$(document).ready(function(){
+$('.custom-select').click(function(){
+$('.custom-select').attr('size',2);
+});});
+</script>
+<script>
+$(document).ready(function(){
+$('.custom-select').blur(function(){
+$('.custom-select').attr('size',1);
+});});
+</script>
+
+<script>
+$(document).ready(function(){
+$("#myInput").on("keyup", function() {
+var value = $(this).val().toLowerCase();
+$("option").filter(function() {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});});});
+</script>
+
+
+    <!-- Use this script to hide all links except
+
+
+    <script>
+$(document).ready(function(){
+    $(".custom-select").change(function(){
+        var show = $(this).children("option:selected").val();
+        alert(show);
+    });
+});
+</script>
+
+         the show that is in select list          -->
+
+
+<script>
+$(document).ready(function(){
+$(".custom-select").change(function(){
+var item = $(this).children("option:selected").val().toLowerCase();
+$("#myList li").filter(function() {
+$(this).toggle($(this).text().toLowerCase().indexOf(item) > -1)
+});});});
+</script>
+<hr/>
+<button type="submit" class="btn btn-primary">Download Excel Sheets</button>
+<br><br>
+</form>
+
+
+
+
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}

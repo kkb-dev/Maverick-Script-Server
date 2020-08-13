@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Info</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Info</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+            <p>Quick access to some general info.</p><hr/>
+
+
+
+<div>
+    <strong>OneLogin</strong>
+    <p><a href="https://javits.onelogin.com">javits.onelogin.com</a></p>
+
+    <strong>@Javits WiFi</strong>
+    <p><a href="https://wifiportal.javitscenter.com">wifiportal.javitscenter.com</a></p>
+
+    <strong>CUCM</strong>
+    <p><a href="https://javits-pub01.javitscenter.com">javits-pub01.javitscenter.com</a></p>
+
+    <strong>Helpdesk</strong>
+    <p><a href="http://helpdesk:8080/">http://helpdesk:8080/</a></p>
+
+    <strong>ISE</strong>
+    <p><a href="https://javits-ise-01.javitscenter.com/admin/login.jsp">javits-ise-01.javitscenter.com</a></p>
+
+    <strong>Wireless LAN Controllers</strong>
+    <p><a href="http://172.16.255.11">Controller 1</a>
+    | <a href="http://172.16.255.12">Controller 2</a>
+    | <a href="http://172.16.255.13">Controller 3</a>
+    | <a href="http://172.16.255.14">Controller 4</a></p>
+</div>
+<hr>
+<div>
+    <strong>Booth Wi-Fi: @Wi-Fi 1.5Mbps</strong>
+    <p>3X1biT0r</p>
+    <strong>Booth Wi-Fi: @Wi-Fi 5Mbps</strong>
+    <p>3X5biT0R</p>
+</div>
+<div>
+    <strong>Router Administrator</strong>
+    <p>Username: admin<br>
+    Password: A$U$1</p>
+
+    <strong>Router Set Up for Exhibitors</strong>
+    <p>SSID Name: <i>(Booth Name)</i><br>
+    Password: J@vit$413</p>
+</div>
+<div>
+    <strong>Javits Center Hidden SSID</strong>
+    <p>j@V$TSg3$TT</p>
+</div>
+
+<div>
+    <strong>Admin Laptops</strong>
+    <p>Username: sysadmin<br>
+    Password: J@v1T$123!</p>
+</div>
+
+<div>
+    <strong>Javits Center User Laptops</strong>
+    <p>Password: Welcome101</p>
+</div>
+<div>
+    <strong>VG224</strong>
+    <p>Username: Admin<br>
+    Password: C!$c0123JJC!</p>
+</div>
+<div>
+    <strong>ISE(50)</strong>
+    <p>Username: JavitsISE<br>
+    Password: JJise1</p>
+</div>
+<div>
+    <strong>IT Office TVs</strong>
+    <p>Username: SysAdmin<br>
+    Password: Putin101</p>
+</div>
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}

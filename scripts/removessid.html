@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Remove: SSID</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Remove SSID(s)</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+<p>Check broadcasting SSIDs and delete selected ones.</p>
+<hr/>
+    <b>Refresh SSIDs:</b>
+    <p class="form-text text-muted">Pull updated list of current SSIDs on the controllers.</p>
+<!-- Modal Button -->
+<span data-toggle="modal" data-target="#myModal">
+<button type="button" data-toggle="tooltip" title='{{time}}' class="btn btn-primary" id="dislikes"
+          onclick="location.href='{% url 'getssids' %}'"
+          onclick="disableClick()"
+          value="notThisValue">
+            Update SSID List
+        </button>
+</span>
+
+<!-- The Modal Start-->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+      <div class="modal-body">
+          <div class="d-flex align-items-center">
+              <strong>SecureCRT is running, please wait...</strong>
+              <div class="spinner-border ml-auto" role="status" aria-hidden="true">
+              </div></div></div></div></div></div>
+<!-- The Button Script-->
+<script>
+$(document).ready(function() {
+$('#dislikes').click(function() {
+$('body').css('pointer-events', 'none');
+$('body').css('user-select', 'none');
+$(this).text('Running Script...');
+})
+});
+</script>
+
+
+        <form method="post">
+        {% csrf_token %}
+            <hr/>
+             {% if form.is_valid%}
+
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>SSID(s) ready to be deleted!</strong></div>
+            {% endif %}
+
+            {% for error in form.errors %}
+                {% if error == "ssids" %}
+                    {% if form.ssids.errors.as_text == "* This field is required." %}
+                    {%else%}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Permission Needed!</strong> You are not allowed to delete SSIDs below WID of 100!</div>
+                {%endif%}{%endif%}
+                {% if error == "show" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Show Required!</strong> Enter a Show Name!</div>
+                {%endif%}
+                {% if error == "frequency" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Frequency Required!</strong> Please enter a Radio Frequency!</div>
+                {%endif%}
+                {% if error == "apgroups" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>AP Groups Incorrect!</strong> Please choose AP Group(s)!</div>
+                {%endif%}
+                {% if error == "vlan" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>VLAN Incorrect!</strong> Needs to be a valid VLAN!</div>
+                {%endif%}
+                {% if error == "passw" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Password Incorrect!</strong> '?' are not an accepted character, use the WLC web browser to make a password with '?' included!</div>
+                {%endif%}
+            {% endfor %}
+
+
+
+
+            <b>Current SSIDs</b><br>
+            <p class="form-text text-muted">Choose SSID(s) to delete.</p>
+            <hr>
+
+                <!--Check/Uncheck-->
+                <script type="text/javascript">
+                    function selectAll() {
+                        var items = document.getElementsByName('apgroups');
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].type == 'checkbox')
+                                items[i].checked = true;
+                        }
+                    }
+
+                    function UnSelectAll() {
+                        var items = document.getElementsByName('apgroups');
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].type == 'checkbox')
+                                items[i].checked = false;
+                        }
+                    }
+                </script>
+
+                <!--Filter Search-->
+                <div class="container">
+                <input class="form-control" id="myInput" type="text" placeholder="Search for specific SSIDs...">
+                <br>
+
+                <!--ul class="list-group" id="myList"-->
+                <ul class="list-group" id="myList">
+                    <li class="list-group-item" name="ap">
+                        <strong>
+                        Controllers || WID  SSID / Profile Name
+                        </strong>
+                    </li>
+                    {% for ssid in form.ssids%}
+                    <li class="list-group-item" name="ap">{{ssid}}</li>
+                    {% endfor %}
+                </ul>
+                </div>
+
+                <script>
+                $(document).ready(function(){
+                $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myList li").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                });
+                });
+                </script>
+
+
+</body>
+</html>
+
+            <hr/>
+            <button type="submit" class="btn btn-primary">Submit Script</button>
+            <div class="fixed-bottom"><button type="submit" class="btn btn-primary">Submit Script</button>
+            </div>
+            <br><br><br><br><br><br>
+
+        </form>
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+
+{% endblock %}

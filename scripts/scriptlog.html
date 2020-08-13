@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Log</title>
+{% endblock %}
+
+{% block header %}
+    <h2>LOG</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <form method="post">
+        {% csrf_token %}
+
+            <p>Record of all launched scripts. [Currently up to 3 years.]</p>
+            <hr/>
+<div class="fixed-bottom"><a href="#top" class="btn btn-info" role="button">Go Back Up</a></div>
+
+    <input class="form-control-sm" placeholder="Search by User..." id={{form.user}}
+    <input class="form-control-sm" placeholder="Search by Show..." id={{form.show}}
+    <input class="form-control-sm" placeholder="Search by Script..." id={{form.script}}
+    <br><br><br/>
+<button type="submit" class="btn btn-primary">Filter Search</button>
+</form>
+
+<hr/>
+<p>Scroll to the right on the table for more info!</p>
+
+
+  <br>
+  <table class="table table-responsive table-bordered">
+    <thead>
+      <tr class="d-flex">
+        <th class="col-3">Date</th>
+        <th class="col-3">Script</th>
+        <th class="col-3">Show</th>
+        <th class="col-3">User</th>
+        <th class="col-3">Device/AP Groups</th>
+        <th class="col-3">Controller</th>
+        <th class="col-3">WID/VLAN</th>
+        <th class="col-3">Booth/SSID Name</th>
+        <th class="col-3">SSID Pass</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+
+    {% for row in cfile %}
+      <tr class="d-flex">
+        {% for data in row %}
+            {% if data == "" %}
+            {% else %}
+                <td class="col-3">{{data}}</td>
+            {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+</html>
+
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}

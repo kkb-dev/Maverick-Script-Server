@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Add: MAC</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Add MAC</h2>
+{% endblock %}
+
+
+
+{%block body%}
+{% if user.is_authenticated %}
+<p>Whitelist MAC Addresses to Booth Wi-Fi.</p><hr/>
+
+ {% if form.is_valid %}
+    <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>MAC Address(es) ready to be added!</strong></div>
+    {% if email == "" %}
+        <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>No Email Attached!</strong> No one will be emailed the credentials!</div>
+    {% endif %}
+{% endif %}
+
+{% for error in form.errors %}
+    {% if error == "show" %}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Show Required!</strong> Enter a Show Name!</div>
+    {%endif%}
+    {% if error == "email" %}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Email Incorrect!</strong> Enter a valid email address! (Example: user@example.com)</div>
+    {%endif%}
+    {% if error == "__all__" %}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Missing MACs!</strong> No MACs entered!</div>
+    {%endif%}
+{% endfor %}
+    {% if form.mac1.errors or form.mac2.errors or form.mac3.errors or form.mac4.errors or form.mac5.errors or form.mac6.errors or form.mac7.errors or form.mac8.errors or form.mac9.errors or form.mac10.errors or form.mac11.errors or form.mac12.errors%}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Incorrect MAC(s)!</strong> Incorrect formatting for MACs highlighted red!</div>
+    {% endif %}
+
+<form method="post">{% csrf_token %}
+
+<div class="form-group col-md-6">
+<label for="inputState"><strong>Show Name</strong></label>
+<select class="form-control" id={{form.show}}
+</select>
+<p class="form-text text-muted"><small>(Required) Choose the Show Name.</small></p>
+</div>
+<br>
+
+<div class="form-group col-md-4">
+<label for="inputEmail4"><strong>Booth Number</strong></label>
+<input class="form-control" placeholder="Enter Booth Number..." id={{form.booth}}
+<p class="form-text text-muted"><small>(Required) Enter the Booth Number.</small></p>
+</div><br>
+
+<div class="container"><b>Speed:</b><br>
+<p class="form-text text-muted"><small>(Required) Choose Booth in Wi-Fi speed.</small></p>
+{% for s in form.speed%}
+{{s}} Booth in Wi-Fi<br>
+{% endfor %}<br></div>
+
+
+<div class="container">
+    <label><strong>&nbspMAC Address</strong></label>
+<div class="form-row">
+<div class="form-group col">
+{% if form.mac1.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac1}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac1}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac2.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac2}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac2}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac3.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac3}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac3}} </div>
+{% endif %}
+</div>
+
+<div class="form-row">
+<div class="form-group col">
+{% if form.mac4.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac4}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac4}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac5.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac5}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac5}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac6.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac6}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac6}} </div>
+{% endif %}
+</div>
+<div class="form-row">
+<div class="form-group col">
+{% if form.mac7.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac7}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac7}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac8.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac8}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac8}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac9.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac9}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac9}} </div>
+{% endif %}
+</div>
+<div class="form-row">
+<div class="form-group col">
+{% if form.mac10.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac10}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac10}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac11.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac11}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac11}} </div>
+{% endif %}
+<div class="form-group col">
+{% if form.mac12.errors %}
+<input  class="form-control border-danger" placeholder="Enter MAC Address..." id={{form.mac12}} </div>
+{% else %}
+<input  class="form-control " placeholder="Enter MAC Address..." id={{form.mac12}} </div>
+{% endif %}
+</div>
+<p class="form-text text-muted"><small>(Required) Enter Wi-Fi / Wireless MAC Address.</small></p>
+</div>
+<br>
+
+<div class="form-group col-md-5">
+<label><strong>Exhibitor Email</strong></label>
+<input class="form-control" placeholder="user@example.com" id={{form.email}}
+</div>
+<div class="container">
+<p class="form-text text-muted"><small>(Optional) Enter Exhibitor email to send credentials for Booth in WiFi.</small></p></div>
+
+
+{% endif %}
+
+<hr/>
+<button type="submit" class="btn btn-primary">Submit Script</button>
+<br><br>
+{% endblock%}
+

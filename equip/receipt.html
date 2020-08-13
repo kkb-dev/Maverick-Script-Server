@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Receipt</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Create Equipment Receipt</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+            <p>Create equipment receipt for rentals.</p><hr/>
+
+{% if count %}
+        <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Duplicate!</strong> A file already exists with this name, file created with ({{count}}) added in directory!</div>
+{% endif %}
+
+{% if form.is_valid %}
+        <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> Entry Created! File: {{filename}}</div>
+{% endif %}
+
+
+{% if form.booth_name.errors%}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Invalid Characters!</strong> Booth Name cannot contain characters:  \ / : * ? " < > | </div>
+{% endif %}
+
+{% if form.booth_num.errors%}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Invalid Character!</strong> Booth Number cannot contain characters: \ / : * ? " < > | </div>
+{% endif %}
+
+{% if form.errors %}
+{% if "Duplicate" in form.errors.as_text%}
+        <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Duplicate Serial(s)!</strong> Each field should contain a unique serial number!</div>
+{%endif%}
+{%else%}
+
+{%endif%}
+
+<form method="post">{% csrf_token %}
+<div class="form-group col-md-6">
+<label><strong>Show Name </strong></label>
+<select class="form-control" id={{form.show}}
+</select>
+</div>
+
+<div class="form-group col-md-3">
+<label><strong>Hall / Location</strong></label>
+<input type="text" class="form-control" id={{form.hall}}
+</div>
+
+<div class="container">
+<div class="form-row">
+<div class="col-md-4 mb-3">
+<label><strong>Booth Name</strong></label>
+<input type="text" class="form-control" id={{form.booth_name}}
+</div>
+<div class="col-md-3 mb-3">
+<label><strong>Booth Number</strong></label>
+<input type="text" class="form-control" id={{form.booth_num}}
+</div></div></div>
+
+<br>
+<div class="container">
+<strong>Equipment Serial</strong>
+    <p class="form-text text-muted"><small>Enter Serial Number of Equipment. Serial will be used to identify the device type.<br><i>(Expands up to 15 devices.)</i></small></p>
+<hr/>
+
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial1%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="1" id={{form.serial1}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial2%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="2" id={{form.serial2}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial3%} class="form-control border-danger" {%else%}class="form-control" {%endif%}  placeholder="3" id={{form.serial3}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial4%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="4" id={{form.serial4}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial5%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="5" id={{form.serial5}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial6%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="6" id={{form.serial6}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial7%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="7" id={{form.serial7}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial8%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="8" id={{form.serial8}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial9%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="9" id={{form.serial9}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial10%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="10" id={{form.serial10}}
+</div>
+</div>
+
+    <div class="container">
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial11%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="11" id={{form.serial11}}
+</div>
+
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial12%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="12" id={{form.serial12}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial13%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="13" id={{form.serial13}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial14%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="14" id={{form.serial14}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial15%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="15" id={{form.serial15}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial16%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="16" id={{form.serial16}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial17%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="17" id={{form.serial17}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial18%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="18" id={{form.serial18}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial19%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="19" id={{form.serial19}}
+</div>
+<div class="form-group col-md-7">
+<input type="text" {%if form.errors.serial20%} class="form-control border-danger" {%else%}class="form-control" {%endif%} placeholder="20" id={{form.serial20}}
+</div>
+</div>
+
+
+<script>
+$("[placeholder='2']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='2']").hide();}
+else{
+$("[placeholder='2']").show();}}).keyup();
+$("[placeholder='3']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='3']").hide();}
+else{
+$("[placeholder='3']").show();}}).keyup();
+$("[placeholder='4']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='4']").hide();}
+else{
+$("[placeholder='4']").show();}}).keyup();
+$("[placeholder='5']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='5']").hide();}
+else{
+$("[placeholder='5']").show();}}).keyup();
+$("[placeholder='6']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='6']").hide();}
+else{
+$("[placeholder='6']").show();}}).keyup();
+$("[placeholder='7']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='7']").hide();}
+else{
+$("[placeholder='7']").show();}}).keyup();
+$("[placeholder='8']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='8']").hide();}
+else{
+$("[placeholder='8']").show();}}).keyup();
+$("[placeholder='9']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='9']").hide();}
+else{
+$("[placeholder='9']").show();}}).keyup();
+$("[placeholder='10']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='10']").hide();}
+else{
+$("[placeholder='10']").show();}}).keyup();
+$("[placeholder='11']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='11']").hide();}
+else{
+$("[placeholder='11']").show();}}).keyup();
+$("[placeholder='12']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='12']").hide();}
+else{
+$("[placeholder='12']").show();}}).keyup();
+$("[placeholder='13']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='13']").hide();}
+else{
+$("[placeholder='13']").show();}}).keyup();
+$("[placeholder='14']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='14']").hide();}
+else{
+$("[placeholder='14']").show();}}).keyup();
+$("[placeholder='15']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='15']").hide();}
+else{
+$("[placeholder='15']").show();}}).keyup();
+$("[placeholder='16']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='16']").hide();}
+else{
+$("[placeholder='16']").show();}}).keyup();
+$("[placeholder='17']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='17']").hide();}
+else{
+$("[placeholder='17']").show();}}).keyup();
+$("[placeholder='18']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='18']").hide();}
+else{
+$("[placeholder='18']").show();}}).keyup();
+$("[placeholder='19']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='19']").hide();}
+else{
+$("[placeholder='19']").show();}}).keyup();
+$("[placeholder='20']").keyup(function(){
+if($(this).val().length == 0){
+$("[placeholder='20']").hide();}
+else{
+$("[placeholder='20']").show();}}).keyup();
+</script>
+
+<script>
+$(document).ready(function(){
+$( "[placeholder='1']" ).keyup(function() {
+$("[placeholder='2']").show();});});
+
+$(document).ready(function(){
+$( "[placeholder='2']" ).keyup(function() {
+$("[placeholder='3']").show();});});
+$(document).ready(function(){
+$( "[placeholder='1']" ).keyup(function(){
+$("[placeholder='2']").show();});});
+$(document).ready(function(){
+$( "[placeholder='2']" ).keyup(function(){
+$("[placeholder='3']").show();});});
+$(document).ready(function(){
+$( "[placeholder='3']" ).keyup(function(){
+$("[placeholder='4']").show();});});
+$(document).ready(function(){
+$( "[placeholder='4']" ).keyup(function(){
+$("[placeholder='5']").show();});});
+$(document).ready(function(){
+$( "[placeholder='5']" ).keyup(function(){
+$("[placeholder='6']").show();});});
+$(document).ready(function(){
+$( "[placeholder='6']" ).keyup(function(){
+$("[placeholder='7']").show();});});
+$(document).ready(function(){
+$( "[placeholder='7']" ).keyup(function(){
+$("[placeholder='8']").show();});});
+$(document).ready(function(){
+$( "[placeholder='8']" ).keyup(function(){
+$("[placeholder='9']").show();});});
+$(document).ready(function(){
+$( "[placeholder='9']" ).keyup(function(){
+$("[placeholder='10']").show();});});
+$(document).ready(function(){
+$( "[placeholder='10']" ).keyup(function(){
+$("[placeholder='11']").show();});});
+$(document).ready(function(){
+$( "[placeholder='11']" ).keyup(function(){
+$("[placeholder='12']").show();});});
+$(document).ready(function(){
+$( "[placeholder='12']" ).keyup(function(){
+$("[placeholder='13']").show();});});
+$(document).ready(function(){
+$( "[placeholder='13']" ).keyup(function(){
+$("[placeholder='14']").show();});});
+$(document).ready(function(){
+$( "[placeholder='14']" ).keyup(function(){
+$("[placeholder='15']").show();});});
+$(document).ready(function(){
+$( "[placeholder='15']" ).keyup(function(){
+$("[placeholder='16']").show();});});
+$(document).ready(function(){
+$( "[placeholder='16']" ).keyup(function(){
+$("[placeholder='17']").show();});});
+$(document).ready(function(){
+$( "[placeholder='17']" ).keyup(function(){
+$("[placeholder='18']").show();});});
+$(document).ready(function(){
+$( "[placeholder='18']" ).keyup(function(){
+$("[placeholder='19']").show();});});
+$(document).ready(function(){
+$( "[placeholder='19']" ).keyup(function(){
+$("[placeholder='20']").show();});});
+</script>
+
+</body>
+</html>
+<hr/>
+<button type="submit" class="btn btn-primary">Submit Script</button>
+<div class="fixed-bottom"><button type="submit" class="btn btn-primary">Submit Script</button>
+</div>
+<br><br><br><br><br><br>
+
+</form>
+
+    {% else %}
+    <a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+    {% endif %}
+{% endblock %}

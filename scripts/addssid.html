@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Add: SSID</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Add SSID</h2>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+            <p>Create an SSID and choose where to broadcast it.</p>
+            <hr/>
+             {% if form.is_valid %}
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>SSID ready to be created and broadcasting!</strong></div>
+                 {% if passw == "" %}
+                    <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>No Password!</strong> This SSID will broadcast without a password!</div>
+                {% endif %}
+            {% endif %}
+            {% for error in form.errors %}
+                {% if error == "show" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Show Required!</strong> Enter a Show Name!</div>
+                {%endif%}
+                {% if error == "frequency" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Frequency Required!</strong> Please enter a Radio Frequency!</div>
+                {%endif%}
+                {% if error == "apgroups" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>AP Groups Incorrect!</strong> Please choose AP Group(s)!</div>
+                {%endif%}
+                {% if error == "vlan" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>VLAN Incorrect!</strong> Needs to be a valid VLAN!</div>
+                {%endif%}
+                {% if error == "wid" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>WID Incorrect!</strong> Needs to be a valid WID or blank!</div>
+                {%endif%}
+                {% if error == "passw" %}
+                    {% if form.passw.errors.as_text == "* ?" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Password Contains Invalid Character(s)!</strong> '?' not an accepted character, use the Wireless LAN Controllers to make a password with '?' included!</div>
+                    {%else%}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Password Incorrect!</strong> You need at least 8 characters!</div>
+                    {%endif%}
+                {%endif%}
+                {% if error == "__all__" %}
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>AP Groups Incorrect!</strong> You need to select at least one AP Group!</div>
+                {%endif%}
+            {% endfor %}
+
+<form method="post">{% csrf_token %}
+<div class="form-group col-md-6">
+<label for="inputState"><strong>Show Name </strong></label>
+<select class="form-control" id={{form.show}}
+</select>
+<p class="form-text text-muted"><small>(Required) Enter the Show Name.</small></p>
+</div>
+<br>
+<div class="container">
+<div class="form-row">
+<div class="col-md-4 mb-3">
+<label><strong>SSID Name:</strong></label>
+<input type="text" class="form-control" id={{form.name}}
+<p class="form-text text-muted"><small>(Required) Enter Name for SSID.</small></p>
+</div>
+<div class="col-md-4 mb-3">
+<label><strong>SSID Password:</strong></label>
+<input type="text" class="form-control" id={{form.passw}}
+<p class="form-text text-muted"><small>(Optional) Enter Password for SSID.</small></p>
+</div></div></div>
+
+<div class="form-group col-md-4">
+<label for="inputEmail4"><strong>VLAN:</strong></label>
+<input class="form-control" id={{form.vlan}}
+</div>
+<div class="container">
+<p class="form-text text-muted"><small>(Required) Choose SSID VLAN. [Only VLANs allowed: 207,705-714]</small></p>
+</div><br>
+
+<div class="container">
+<b>Frequency:</b>
+<p class="form-text text-muted"><small>(Required) Choose which radio frequency to broadcast in (2.4GHz only,5GHz only, or Both).</small></p>
+{%for f in form.frequency%}
+{{f}}<br>
+{%endfor%}<br>
+</div>
+
+<div class="form-group col-md-3">
+<label for="inputEmail4"><strong>WID:</strong></label>
+<input class="form-control" id={{form.wid}}
+</div>
+<div class="container">
+<p class="form-text text-muted"><small>(Optional) Select a number between 100-120.<br> If blank, a random WID between 121-500 will be automatically generated.</small></p>
+</div><br>
+
+<div class="container">
+<b>AP Groups:</b><br>
+<p class="form-text text-muted"><small>(Required) Choose which locations to broadcast the SSID.</small></p>
+<div class="btn-group">
+<button type="button" onclick='selectAll()' class="btn btn-dark">Check All</button>
+<button type="button" class="btn btn-dark disabled"> </button>
+<button type="button" onclick='UnSelectAll()' class="btn btn-dark">Uncheck All</button>
+</div><br><br></div>
+
+<!--Check/Uncheck-->
+<script type="text/javascript">
+function selectAll() {
+    var items = document.getElementsByName('apgroups1');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = true;
+    }
+    var items = document.getElementsByName('apgroups2');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = true;
+    }
+
+    var items = document.getElementsByName('apgroups3');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = true;
+    }
+    var items = document.getElementsByName('apgroups4');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = true;
+    }
+}
+
+function UnSelectAll() {
+    var items = document.getElementsByName('apgroups1');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = false;
+    }
+    var items = document.getElementsByName('apgroups2');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = false;
+    }
+
+    var items = document.getElementsByName('apgroups3');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = false;
+    }
+    var items = document.getElementsByName('apgroups4');
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].type == 'checkbox')
+            items[i].checked = false;
+    }
+}
+</script>
+
+
+<div class="container"><br>
+
+
+<!--ul class="list-group" id="myList"-->
+<ul class="list-group" id="myList">
+    {% for ap in form.apgroups%}
+    <li class="list-group-item" name="ap">{{ap}}</li>
+    {% endfor %}
+</ul>
+</div>
+
+
+<table class="table" id="myList">
+<thead>
+  <tr class="d-flex">
+    <th class="col-3 text-center">Level 1</th>
+    <th class="col-3 text-center">Level 2</th>
+    <th class="col-3 text-center">Level 3</th>
+    <th class="col-3 text-center">Level 4</th>
+  </tr>
+</thead>
+<tbody>
+  <tr class="d-flex ">
+    <td class="col-3"><ul class="list-group list-group-flush text-center">
+    {% for ap in form.apgroups1%}
+    {% if ap %}
+    <li class="list-group-item" style="w-25 p-3" name="ap">{{ap}}</li>
+    {% endif %}
+    {% endfor %}
+    </ul></td>
+
+    <td class="col-3"><ul class="list-group list-group-flush text-center">
+    {% for ap in form.apgroups2%}
+    {% if ap %}
+    <li class="list-group-item" class="w-25 p-3" name="ap">{{ap}}</li>
+    {% endif %}
+    {% endfor %}
+    </ul></td>
+
+    <td class="col-3"><ul class="list-group list-group-flush text-center">
+    {% for ap in form.apgroups3%}
+    {% if ap %}
+    <li class="list-group-item" class="w-25 p-3" name="ap">{{ap}}</li>
+    {% endif %}
+    {% endfor %}
+    </ul></td>
+
+    <td class="col-3"><ul class="list-group list-group-flush text-center">
+    {% for ap in form.apgroups4%}
+    {% if ap %}
+    <li class="list-group-item" class="w-25 p-3" name="ap">{{ap}}</li>
+    {% endif %}
+    {% endfor %}
+    </ul></td>
+  </tr>
+</tbody>
+</table>
+<hr/>
+
+</body>
+</html>
+<hr/>
+<button type="submit" class="btn btn-primary">Submit Script</button>
+<div class="fixed-bottom"><button type="submit" class="btn btn-primary">Submit Script</button>
+</div>
+<br><br><br><br><br><br>
+
+</form>
+
+{% else %}
+<a href="/accounts/login" class="btn btn-info" role="button">Click here to Login</a>
+{% endif %}
+
+{% endblock %}

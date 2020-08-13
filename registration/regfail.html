@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Register</title>
+{% endblock %}
+
+{% block header %}
+    <h2>Register</h2>
+    <p>Register your account via Javits AD before you start using the Sandbox!</p>
+{% endblock %}
+
+{% block body %}
+    <form method="post">
+    {% csrf_token %}
+        <div class="alert alert-danger">
+            <strong>Incorrect!</strong> Please ensure correct username and password.
+        </div>
+
+        <div class="form-group">
+        <label for="usr">First Name:</label>
+        <input type="text" class="form-control"
+               id={{ form.fname }}
+        </div>
+
+        <div class="form-group">
+        <label for="usr">Last Name:</label>
+        <input type="text" class="form-control"
+               id={{ form.lname }}
+        </div>
+
+        <div class="form-group">
+        <label for="usr">Username:</label>
+        <input type="text" class="form-control"
+               id={{ form.usern }}
+        </div>
+        <div class="form-group">
+            <label for="usr">Password:</label>
+            <input type="password" class="form-control"
+                   id={{ form.passw }}
+        </div>
+<!-- Modal Button -->
+<span data-toggle="modal"
+data-target="#myModal">
+<button type="submit" class="btn btn-primary"
+        id="dislikes"
+    onclick="disableClick()"
+        value="notThisValue">
+    Login
+</button><hr>
+</span>
+
+<!-- The Modal Start-->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+  <div class="modal-body">
+      <div class="d-flex align-items-center">
+          <strong>Setting everything up...</strong>
+          <div class="spinner-border ml-auto" role="status" aria-hidden="true">
+          </div></div></div></div></div></div>
+<!-- The Button Script-->
+<script>
+$(document).ready(function() {
+$('#dislikes').click(function() {
+$('body').css('pointer-events', 'none');
+$('body').css('user-select', 'none');
+$(this).text('Registering...');
+})
+});
+</script>
+        <p>
+            <br>
+            <br>
+        </p>
+    </form>
+{% endblock %}
