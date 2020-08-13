@@ -10,4 +10,4 @@ Scripts
 - Remove MAC
 
 Inventory Management
-_ Incomplete
+- Incomplete
