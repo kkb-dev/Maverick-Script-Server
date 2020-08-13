@@ -9,5 +9,5 @@ Creates interface that uses User AD to login and interact with SecureCRT scripti
 - Whitelist MAC
 - Remove MAC
 
-Inventory Management
+## Inventory Management
 - Incomplete
