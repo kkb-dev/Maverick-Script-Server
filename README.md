@@ -5,6 +5,11 @@ Creates interface that uses User AD to login and interact with SecureCRT scripti
 
 ## Scripts 
 - Create SSID
+  * Checks SQL server for current shows. 
+  * SSID Name, SSID Nickname
+  * SSID Password 
+  * VLAN
+  
 - Remove SSID
 - Whitelist MAC
 - Remove MAC
