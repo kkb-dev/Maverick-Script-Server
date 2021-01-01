@@ -13,4 +13,4 @@ Creates interface that uses User AD to login and interact with SecureCRT scripti
 - Incomplete
 
 ## Audting
--- User actions recorded in remote SQL Server controlled by system administrators. 
+- User actions recorded in remote SQL Server controlled by system administrators. 
