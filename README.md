@@ -12,5 +12,8 @@ Creates interface that uses User AD to login and interact with SecureCRT scripti
 ## Inventory Management
 - Incomplete
 
-## Audting
+## Auditing
 - User actions recorded in remote SQL Server controlled by system administrators. 
+
+## Security
+- Only accessible on admin VLAN and AD with access to SecureCRT 
