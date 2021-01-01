@@ -12,6 +12,8 @@ def valid_mac(value):
         raise ValidationError('Incorrect Format')
 
 
+
+
 class addmacForm(forms.Form):
 
     SPEED_CHOICE = [
@@ -24,7 +26,22 @@ class addmacForm(forms.Form):
     def __init__(self, *args, **kwargs):
         try:
             import pyodbc
-            sqlconn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=nyccoc-sql-02;DATABASE=ShowDB;UID=ShowDBuser;PWD=zQ+GZ*[z!EtCXv5)')
+
+            def sqlcred():
+                import os, pathlib
+                credpath = os.path.dirname(os.path.realpath(__file__))
+                cred = pathlib.Path(credpath).parents[0]
+                sqlcred = str(cred) + "\\sqlcred.txt"
+
+                f = open("sqlcred.txt","r")
+                sql = f.readlines()
+                sqlS = sql[0]
+                sqld = sql[1]
+                sqlP = sql[2]
+                
+                return (sqlS, sqlD, sqlP)
+
+            sqlconn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=%s;DATABASE=ShowDB;UID=ShowDBuser;PWD=zQ+GZ*[z!EtCXv5)') % (sqlcred())
             cur = sqlconn.cursor()
             sql = """SELECT name FROM shows WHERE GETDATE() between dateadd(day, -7, move_in) and dateadd(day, 3, move_out) ORDER BY move_in"""
             cur.execute(sql)
