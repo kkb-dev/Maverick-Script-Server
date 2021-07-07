@@ -10,7 +10,7 @@ Creates interface that uses User AD to login and interact with SecureCRT scripti
 - Remove MAC
 
 ## Inventory Management
-- Incomplete
+- Create reciepts and acknowledge returned items
 
 ## Auditing
 - User actions recorded in remote SQL Server controlled by system administrators. 
